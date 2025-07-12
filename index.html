@@ -30,7 +30,7 @@
             width: 120px;
             height: 110px;
             object-fit: contain;
-            margin-bottom: 60px;
+            margin-bottom: 20px;
         }
         
         h1 {
@@ -115,6 +115,56 @@
             transform: translateY(1px);
         }
         
+        /* Loading States */
+        .loading {
+            pointer-events: none;
+        }
+        
+        .loading .submit-btn {
+            background: #666;
+            cursor: not-allowed;
+            position: relative;
+        }
+        
+        .loading .submit-btn span {
+            opacity: 0;
+        }
+        
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .loading .spinner {
+            display: block;
+        }
+        
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        .loading-text {
+            display: none;
+            font-size: 16px;
+            color: #666;
+            margin-top: 16px;
+            text-align: center;
+        }
+        
+        .loading .loading-text {
+            display: block;
+        }
+        
         /* Responsivo */
         @media (max-width: 768px) {
             .container {
@@ -193,9 +243,14 @@
             </div>
             
             <button type="submit" class="submit-btn">
-                Cadastrar
-                <span>→</span>
+                <span class="btn-text">Cadastrar</span>
+                <span class="btn-arrow">→</span>
+                <div class="spinner"></div>
             </button>
+            
+            <div class="loading-text">
+                Gerando seu cartão digital...
+            </div>
         </form>
     </div>
 
@@ -236,12 +291,23 @@
                 return;
             }
 
+            // Ativa o loading
+            document.body.classList.add('loading');
+            
             const nomeEnc = encodeURIComponent(nome);
             const serial = '09bb2a0e-d964-43d2-86e3-92d538b0268d';
             const url = `https://mobilecom-internal-api.azurewebsites.net/api/YewSoftware/CriarApplePass?nome=${nomeEnc}&serial=${serial}`;
             
-            window.location.href = url;
-            document.getElementById('form').reset();
+            // Simula o tempo de processamento e depois redireciona
+            setTimeout(() => {
+                window.location.href = url;
+                
+                // Remove o loading após um tempo (caso o usuário volte)
+                setTimeout(() => {
+                    document.body.classList.remove('loading');
+                    document.getElementById('form').reset();
+                }, 2000);
+            }, 1000);
         });
     </script>
 </body>
