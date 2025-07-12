@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Demo - Clube do Whisky</title>
+    <title>Clube do Whisky</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -10,39 +10,40 @@
             font-family: 'Inter', sans-serif;
             color: #37352F;
             margin: 0;
-            padding: 80px 20px 0 20px; /* padding lateral faz o papel do container */
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            padding: 60px 20px; /* espaço superior + laterais */
         }
         .logo img {
             width: 120px;
-            height: 110px;
-            object-fit: contain;
+            height: auto;
+            display: block;
             margin-bottom: 20px;
         }
         h1 {
-            font-size: 32px;
-            margin: 0 0 10px;
+            font-size: 28px;
             font-weight: 700;
+            margin: 0 0 10px;
         }
         p {
             font-size: 14px;
             margin: 0 0 20px;
         }
         form {
+            max-width: 400px; /* limita a largura do bloco do form */
+            width: 100%;
             display: flex;
             flex-direction: column;
+            align-items: flex-start;
         }
         input, button {
             width: 100%;
+            box-sizing: border-box;
         }
         input {
-            height: 36px;
+            height: 40px;
             background: rgba(255,255,255,0.5);
             border: 1px solid #3c3a33;
             border-radius: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             padding: 0 10px;
             font-size: 14px;
             color: #37352F;
@@ -55,9 +56,8 @@
             color: #FFFFFF;
             border: none;
             border-radius: 8px;
-            height: 36px;
+            height: 42px;
             font-size: 16px;
-            padding: 0 14px;
             cursor: pointer;
             margin-top: 10px;
         }
