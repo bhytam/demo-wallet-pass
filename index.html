@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Demo - Clube do Whisky</title>
+    <title>DEMO - Clube do Whisky</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -10,7 +10,7 @@
             font-family: 'Inter', sans-serif;
             color: #37352F;
             margin: 0;
-            padding: 50px; /* força o conteúdo a ficar no topo */
+            padding: 50px;
         }
         .container {
             max-width: 700px;
@@ -20,8 +20,6 @@
             width: 120px;
             height: 110px;
             object-fit: contain;
-            border-radius: 0;
-            display: block;
             margin-bottom: 20px;
         }
         h1 {
@@ -75,12 +73,34 @@
         </div>
         <h1>Clube do Whisky</h1>
         <p>Faça aqui seu cadastro ao nosso clube do Whisky</p>
-        <form>
-            <input type="text" placeholder="Nome e Sobrenome">
+        <form id="form">
+            <input type="text" id="nome" placeholder="Nome e Sobrenome" required>
             <input type="text" placeholder="CPF">
             <input type="text" placeholder="Data de nascimento (ex: 29/02)">
             <button type="submit">Cadastrar →</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const nome = encodeURIComponent(document.getElementById('nome').value.trim());
+            const serial = '09bb2a0e-d964-43d2-86e3-92d538b0268d'; // fixo, ou podemos gerar random se quiser
+            const url = `https://mobilecom-internal-api.azurewebsites.net/api/YewSoftware/CriarApplePass?nome=${nome}&serial=${serial}`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Falha na requisição");
+
+                const blob = await response.blob();
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'cartao.pkpass';
+                link.click();
+            } catch (error) {
+                alert("Erro ao gerar o Apple Wallet Pass: " + error.message);
+            }
+        });
+    </script>
 </body>
 </html>
