@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo - Clube do Whisky</title>
+    <title>Clube do Whisky</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -13,54 +13,73 @@
         }
         
         body {
-            background: #DDDCC2;
+            background: #E8E6D3;
             font-family: 'Inter', sans-serif;
             color: #37352F;
-            min-height: 100vh;
-            padding: 40px 20px;
+            height: 100vh;
+            overflow: hidden;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .container {
             max-width: 600px;
             width: 100%;
             margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+            position: relative;
         }
         
-        .logo img {
-            width: 120px;
-            height: 110px;
-            object-fit: contain;
+        .logo {
             margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .logo-text {
+            font-size: 48px;
+            font-weight: 400;
+            color: #37352F;
+            font-style: italic;
+            font-family: 'Inter', cursive;
+            line-height: 1;
         }
         
         h1 {
-            font-size: 48px;
+            font-size: 32px;
             font-weight: 700;
-            margin-bottom: 40px;
+            margin-bottom: 16px;
             color: #37352F;
             line-height: 1.1;
+            text-align: center;
         }
         
         .subtitle {
-            font-size: 18px;
+            font-size: 14px;
             color: #37352F;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
             line-height: 1.4;
+            text-align: center;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             position: relative;
         }
         
         input {
             width: 100%;
-            height: 56px;
+            height: 44px;
             background: rgba(255, 255, 255, 0.6);
             border: 2px solid #C4C4C4;
             border-radius: 12px;
             padding: 0 20px;
-            font-size: 18px;
+            font-size: 16px;
             color: #37352F;
             font-family: 'Inter', sans-serif;
             transition: all 0.2s ease;
@@ -74,7 +93,7 @@
         
         input::placeholder {
             color: #9B9B9B;
-            font-size: 18px;
+            font-size: 16px;
         }
         
         .required {
@@ -83,7 +102,7 @@
             top: 50%;
             transform: translateY(-50%);
             color: #37352F;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 500;
         }
         
@@ -92,8 +111,8 @@
             color: white;
             border: none;
             border-radius: 12px;
-            height: 56px;
-            font-size: 18px;
+            height: 44px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -101,10 +120,11 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-top: 20px;
+            margin-top: 16px;
             padding: 0 32px;
             width: auto;
-            min-width: 160px;
+            min-width: 140px;
+            align-self: flex-start;
         }
         
         .submit-btn:hover {
@@ -155,9 +175,9 @@
         
         .loading-text {
             display: none;
-            font-size: 16px;
+            font-size: 14px;
             color: #666;
-            margin-top: 16px;
+            margin-top: 12px;
             text-align: center;
         }
         
@@ -168,51 +188,85 @@
         /* Responsivo */
         @media (max-width: 768px) {
             .container {
-                padding: 0 20px;
+                padding: 16px;
             }
             
             .logo-text {
-                font-size: 48px;
-            }
-            
-            h1 {
                 font-size: 36px;
-            }
-            
-            .subtitle {
-                font-size: 16px;
-            }
-            
-            input {
-                font-size: 16px;
-                height: 52px;
-            }
-            
-            input::placeholder {
-                font-size: 16px;
-            }
-            
-            .submit-btn {
-                font-size: 16px;
-                height: 52px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                padding: 20px 16px;
-            }
-            
-            .logo-text {
-                font-size: 40px;
             }
             
             h1 {
                 font-size: 28px;
+                margin-bottom: 12px;
             }
             
             .subtitle {
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+            
+            input {
+                height: 42px;
+                font-size: 15px;
+            }
+            
+            input::placeholder {
+                font-size: 15px;
+            }
+            
+            .submit-btn {
+                height: 42px;
+                font-size: 15px;
+            }
+            
+            .form-group {
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* iPhone specific adjustments */
+        @media (max-width: 430px) {
+            .container {
+                padding: 12px;
+                height: 100vh;
+            }
+            
+            .logo-text {
+                font-size: 32px;
+            }
+            
+            h1 {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+            
+            .subtitle {
+                font-size: 12px;
+                margin-bottom: 16px;
+            }
+            
+            .form-group {
+                margin-bottom: 8px;
+            }
+            
+            input {
+                height: 40px;
                 font-size: 14px;
+            }
+            
+            input::placeholder {
+                font-size: 14px;
+            }
+            
+            .submit-btn {
+                height: 40px;
+                font-size: 14px;
+                margin-top: 12px;
+            }
+            
+            .loading-text {
+                font-size: 12px;
+                margin-top: 8px;
             }
         }
     </style>
@@ -220,7 +274,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://storageaccountmobilb1d8.blob.core.windows.net/bsoftware/wallets/giz/MARCA-GIZ2.png" alt="Giz">
+            <div class="logo-text">Giz</div>
         </div>
         
         <h1>Clube do Whisky</h1>
