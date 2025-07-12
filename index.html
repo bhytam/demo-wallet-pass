@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>DEMO - Clube do Whisky</title>
+    <title>Demo - Clube do Whisky</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -75,18 +75,51 @@
         <p>Faça aqui seu cadastro ao nosso clube do Whisky</p>
         <form id="form">
             <input type="text" id="nome" placeholder="Nome e Sobrenome" required>
-            <input type="text" placeholder="CPF">
-            <input type="text" placeholder="Data de nascimento (ex: 29/02)">
+            <input type="text" id="cpf" placeholder="CPF" required maxlength="14">
+            <input type="text" id="nascimento" placeholder="Data de nascimento (ex: 29/02)" required maxlength="5">
             <button type="submit">Cadastrar →</button>
         </form>
     </div>
 
     <script>
-        document.getElementById('form').addEventListener('submit', function(event) {
+        // Máscara CPF
+        document.getElementById('cpf').addEventListener('input', function (e) {
+            let v = e.target.value.replace(/\D/g, "");
+            if (v.length > 11) v = v.slice(0, 11);
+            v = v.replace(/(\d{3})(\d)/, "$1.$2");
+            v = v.replace(/(\d{3})(\d)/, "$1.$2");
+            v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+            e.target.value = v;
+        });
+
+        // Máscara data nascimento DD/MM
+        document.getElementById('nascimento').addEventListener('input', function (e) {
+            let v = e.target.value.replace(/\D/g, "");
+            if (v.length > 4) v = v.slice(0, 4);
+            if (v.length >= 3)
+                v = v.replace(/(\d{2})(\d+)/, "$1/$2");
+            e.target.value = v;
+        });
+
+        // Submissão
+        document.getElementById('form').addEventListener('submit', function (event) {
             event.preventDefault();
-            const nome = encodeURIComponent(document.getElementById('nome').value.trim());
+            const nome = document.getElementById('nome').value.trim();
+            const cpf = document.getElementById('cpf').value.trim();
+            const nascimento = document.getElementById('nascimento').value.trim();
+
+            if (!nome || !cpf || !nascimento) {
+                alert("Preencha todos os campos.");
+                return;
+            }
+            if (cpf.length < 14) {
+                alert("CPF inválido. Complete todos os dígitos.");
+                return;
+            }
+
+            const nomeEnc = encodeURIComponent(nome);
             const serial = '09bb2a0e-d964-43d2-86e3-92d538b0268d';
-            const url = `https://mobilecom-internal-api.azurewebsites.net/api/YewSoftware/CriarApplePass?nome=${nome}&serial=${serial}`;
+            const url = `https://mobilecom-internal-api.azurewebsites.net/api/YewSoftware/CriarApplePass?nome=${nomeEnc}&serial=${serial}`;
             window.location.href = url;
         });
     </script>
