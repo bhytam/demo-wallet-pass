@@ -82,24 +82,12 @@
     </div>
 
     <script>
-        document.getElementById('form').addEventListener('submit', async function(event) {
+        document.getElementById('form').addEventListener('submit', function(event) {
             event.preventDefault();
             const nome = encodeURIComponent(document.getElementById('nome').value.trim());
-            const serial = '09bb2a0e-d964-43d2-86e3-92d538b0268d'; // fixo, ou podemos gerar random se quiser
+            const serial = '09bb2a0e-d964-43d2-86e3-92d538b0268d';
             const url = `https://mobilecom-internal-api.azurewebsites.net/api/YewSoftware/CriarApplePass?nome=${nome}&serial=${serial}`;
-            
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error("Falha na requisição");
-
-                const blob = await response.blob();
-                const link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = 'cartao.pkpass';
-                link.click();
-            } catch (error) {
-                alert("Erro ao gerar o Apple Wallet Pass: " + error.message);
-            }
+            window.location.href = url;
         });
     </script>
 </body>
