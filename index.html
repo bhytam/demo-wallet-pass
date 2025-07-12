@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Demo - Clube do Whisky</title>
+    <title>Clube do Whisky</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -101,7 +101,7 @@
             e.target.value = v;
         });
 
-        // Submissão
+        // Submissão do formulário
         document.getElementById('form').addEventListener('submit', function (event) {
             event.preventDefault();
             const nome = document.getElementById('nome').value.trim();
@@ -120,7 +120,11 @@
             const nomeEnc = encodeURIComponent(nome);
             const serial = '09bb2a0e-d964-43d2-86e3-92d538b0268d';
             const url = `https://mobilecom-internal-api.azurewebsites.net/api/YewSoftware/CriarApplePass?nome=${nomeEnc}&serial=${serial}`;
+
             window.location.href = url;
+
+            // Limpa o formulário após o download
+            document.getElementById('form').reset();
         });
     </script>
 </body>
